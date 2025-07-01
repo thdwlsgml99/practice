@@ -15,16 +15,24 @@ sql = 'SELECT  * FROM `edu`.`NOTICE` WHERE NO = 1'
 cur.execute(sql)
 result = cur.fetchone()
 
+col_name = cur.description
+name = ""
+for row in col_name:
+    name += row[0] + ("\t\t\t" if row[0] == 'regDate' else "\t")
+print(name)
+
 if result == None:
     print("데이터가 없습니다.")
 else:
     행 = ""
-    print('no\ttitle\tdesc\tcontent\tregDate\tmodDate')
+    # print('no\ttitle\tdesc\tcontent\tregDate\tmodDate')
     for col in result:
+        print(type(col))
         if col == None:
             행 += "없다\t"
-        행 += f'{col}\t'
+        else:
+            행 += f'{col}\t'
     print(행)
-
+    
 cur.close()
 conn.close()
